@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B283C6A225FDC983008B59E0 /* COPYING.md in Resources */ = {isa = PBXBuildFile; fileRef = B283C6A125FDC983008B59E0 /* COPYING.md */; };
+		B283C6A525FDC989008B59E0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B283C6A425FDC989008B59E0 /* README.md */; };
 		B2E5D55F25F9AAE60096A035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E5D55E25F9AAE60096A035 /* AppDelegate.swift */; };
 		B2E5D56125F9AAE60096A035 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E5D56025F9AAE60096A035 /* WindowViewController.swift */; };
 		B2E5D56325F9AAE90096A035 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2E5D56225F9AAE90096A035 /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B283C6A125FDC983008B59E0 /* COPYING.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
+		B283C6A425FDC989008B59E0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		B2E5D55B25F9AAE60096A035 /* CardsterEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardsterEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2E5D55E25F9AAE60096A035 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2E5D56025F9AAE60096A035 /* WindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
@@ -41,6 +45,8 @@
 		B2E5D55225F9AAE60096A035 = {
 			isa = PBXGroup;
 			children = (
+				B283C6A125FDC983008B59E0 /* COPYING.md */,
+				B283C6A425FDC989008B59E0 /* README.md */,
 				B2E5D55D25F9AAE60096A035 /* CardsterEditor */,
 				B2E5D55C25F9AAE60096A035 /* Products */,
 			);
@@ -152,6 +158,8 @@
 			files = (
 				B2E5D56325F9AAE90096A035 /* Assets.xcassets in Resources */,
 				B2E5D56625F9AAE90096A035 /* Main.storyboard in Resources */,
+				B283C6A525FDC989008B59E0 /* README.md in Resources */,
+				B283C6A225FDC983008B59E0 /* COPYING.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -313,6 +321,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jakeconvery.CardsterEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -334,6 +343,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.jakeconvery.CardsterEditor;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
