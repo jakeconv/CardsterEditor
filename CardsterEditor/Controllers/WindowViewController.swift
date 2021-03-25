@@ -37,10 +37,7 @@ class WindowViewController: NSViewController {
         let cardCount = deckBuilder.getCardCount()
         if (index == -1) {
             // Alert the user to select a card to delete
-            let alert = NSAlert()
-            alert.messageText = "Card Error"
-            alert.informativeText = "Please select a card to delete"
-            alert.runModal()
+            NSAlert.generateAlert(message: "Card Error", descrtiption: "Please select a card to delete")
         }
         else if ((cardCount - 1) < index) {
             print("An error occured deleting the card at \(index)")
@@ -58,11 +55,16 @@ class WindowViewController: NSViewController {
         // https://developer.apple.com/documentation/appkit/nssavepanel
         // https://stackoverflow.com/questions/29354752/how-to-get-a-path-out-of-an-nssavepanel-object-in-swift
         // https://medium.com/@CoreyWDavis/reading-writing-and-deleting-files-in-swift-197e886416b0
+        if (deckBuilder.getCardCount() == 0) {
+            // There are no cards.  Loading this deck will crash Cardster.
+            NSAlert.generateAlert(message: "Error", descrtiption: "Please add some cards before saving")
+            return
+        }
         // Prompt the user for the file path
         let savePanel = NSSavePanel()
-        savePanel.allowedFileTypes = ["json"]
+        savePanel.allowedFileTypes = ["card"]
         savePanel.title = "Save Deck"
-        savePanel.nameFieldStringValue = "New_Set"
+        savePanel.nameFieldStringValue = "New Deck"
         savePanel.begin { (result) in
             if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
                 // User did not press cancel.  Get the URL and save the cards
@@ -74,10 +76,7 @@ class WindowViewController: NSViewController {
                         }
                         catch {
                             print("Error writing file")
-                            let alert = NSAlert()
-                            alert.messageText = "Error"
-                            alert.informativeText = "An error occured saving to \(url.absoluteURL)."
-                            alert.runModal()
+                            NSAlert.generateAlert(message: "Error", descrtiption: "An error occured saving to \(url.absoluteURL).")
                         }
                     }
                 }
@@ -92,6 +91,7 @@ class WindowViewController: NSViewController {
         addCard()
     }
     
+    // TODO: Add ability to edit pre-existing cards
     func addCard() {
         // First, make sure that there is text in both fields.
         let front = frontCardText.stringValue
@@ -100,6 +100,11 @@ class WindowViewController: NSViewController {
             // Add the card to the deck manager and the table view
             deckBuilder.append(f: front, b: back)
             cardsTable.insertRows(at: IndexSet(integer: (deckBuilder.getCardCount() - 1)), withAnimation: .slideDown)
+            // Scroll down if the table view is filled
+            cardsTable.scrollRowToVisible(deckBuilder.getCardCount() - 1)
+            // Deselect the row, if any is selected.
+            let selectedRow = cardsTable.selectedRow
+            cardsTable.deselectRow(selectedRow)
             // Clear the text fields
             frontCardText.stringValue = ""
             backCardText.stringValue = ""
@@ -108,10 +113,7 @@ class WindowViewController: NSViewController {
         }
         else {
             // Alert the user to enter text
-            let alert = NSAlert()
-            alert.messageText = "Card Error"
-            alert.informativeText = "Please ensure that both the front and back card text are entered before hitting the create button."
-            alert.runModal()
+            NSAlert.generateAlert(message: "Card Error", descrtiption: "Please ensure that both the front and back card text are entered before hitting the create button.")
         }
     }
     
@@ -137,5 +139,15 @@ extension WindowViewController: NSTableViewDelegate, NSTableViewDataSource {
 
     func numberOfRows(in tableView: NSTableView) -> Int {
         return deckBuilder.getCardCount()
+    }
+}
+
+// MARK: Custom NSAlert
+extension NSAlert {
+    static func generateAlert(message: String, descrtiption: String) {
+        let alert = NSAlert()
+        alert.messageText = message
+        alert.informativeText = descrtiption
+        alert.runModal()
     }
 }
