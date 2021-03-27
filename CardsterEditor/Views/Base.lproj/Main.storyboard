@@ -927,7 +927,7 @@
                                                     <font key="font" metaFont="system"/>
                                                 </buttonCell>
                                                 <connections>
-                                                    <action selector="generateJSONButtonPressed:" target="XfG-lQ-9wD" id="MGi-Bd-Rt7"/>
+                                                    <action selector="saveDocument:" target="XfG-lQ-9wD" id="HVt-Pm-9tc"/>
                                                 </connections>
                                             </button>
                                         </subviews>

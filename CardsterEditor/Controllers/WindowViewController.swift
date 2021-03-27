@@ -14,6 +14,7 @@ class WindowViewController: NSViewController {
     @IBOutlet weak var backCardText: NSTextField!
     
     var deckBuilder = DeckBuilder()
+    var deckURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,44 +50,6 @@ class WindowViewController: NSViewController {
         }
     }
     
-    @IBAction func generateJSONButtonPressed(_ sender: Any) {
-        // Selected references:
-        // https://stackoverflow.com/questions/52436057/how-to-display-nssavepanel-in-macos
-        // https://developer.apple.com/documentation/appkit/nssavepanel
-        // https://stackoverflow.com/questions/29354752/how-to-get-a-path-out-of-an-nssavepanel-object-in-swift
-        // https://medium.com/@CoreyWDavis/reading-writing-and-deleting-files-in-swift-197e886416b0
-        if (deckBuilder.getCardCount() == 0) {
-            // There are no cards.  Loading this deck will crash Cardster.
-            NSAlert.generateAlert(message: "Error", descrtiption: "Please add some cards before saving")
-            return
-        }
-        // Prompt the user for the file path
-        let savePanel = NSSavePanel()
-        savePanel.allowedFileTypes = ["card"]
-        savePanel.title = "Save Deck"
-        savePanel.nameFieldStringValue = "New Deck"
-        savePanel.begin { (result) in
-            if result.rawValue == NSApplication.ModalResponse.OK.rawValue {
-                // User did not press cancel.  Get the URL and save the cards
-                if let url = savePanel.url {
-                    if let data = self.deckBuilder.goToJSON() {
-                        do {
-                            try data.write(to: url)
-                            print("Successfully saved to \(url.absoluteURL)")
-                        }
-                        catch {
-                            print("Error writing file")
-                            NSAlert.generateAlert(message: "Error", descrtiption: "An error occured saving to \(url.absoluteURL).")
-                        }
-                    }
-                }
-            }
-            else {
-                // User hit cancel on the save dialogue
-                print("User cancelled save")
-            }
-        }
-    }
     @IBAction func enterPressedOnBackCard(_ sender: NSTextField) {
         addCard()
     }
@@ -127,11 +90,80 @@ class WindowViewController: NSViewController {
         // Verify that the user specified a file.  If they did, then try to open it.
         if openPanel.urls.count > 0 {
             let targetURL = openPanel.urls[0]
+            deckURL = targetURL
             deckBuilder.openExistingFile(at: targetURL)
             cardsTable.reloadData()
         }
         else {
             print("User cancelled file open")
+        }
+    }
+    
+    @IBAction func saveDocument(_ sender: Any) {
+        if deckURL != nil {
+            // Deck URL is established.  Save the file.
+            executeSave(to: deckURL!)
+        }
+        else {
+            // Get the URL and then save.  If the user does not specify a file, then give up.
+            if (getFileURL()) {
+                executeSave(to: deckURL!)
+            }
+        }
+    }
+    
+    @IBAction func saveDocumentAs(_ sender: Any) {
+        // Get the URL and then save.  If the user does not specify a file, then give up.
+        if (getFileURL()) {
+            executeSave(to: deckURL!)
+        }
+    }
+    
+    // MARK: - Items to support saving
+    func checkForCardCount() -> Bool {
+        // Make sure that there is at least one card
+        if (deckBuilder.getCardCount() == 0) {
+            // There are no cards.  Loading this deck will crash Cardster.
+            NSAlert.generateAlert(message: "Error", descrtiption: "Please add some cards before saving")
+            return false
+        }
+        else {
+            // Cards exist.  We're good to save
+            return true
+        }
+    }
+    
+    func executeSave(to url: URL) {
+        // Selected references (for all of the document saving):
+        // https://stackoverflow.com/questions/52436057/how-to-display-nssavepanel-in-macos
+        // https://developer.apple.com/documentation/appkit/nssavepanel
+        // https://stackoverflow.com/questions/29354752/how-to-get-a-path-out-of-an-nssavepanel-object-in-swift
+        // https://medium.com/@CoreyWDavis/reading-writing-and-deleting-files-in-swift-197e886416b0
+        if (checkForCardCount()) {
+            if let data = deckBuilder.goToJSON() {
+                let fileWriter = FileWriter()
+                fileWriter.save(data, to: url)
+            }
+            else {
+                print("An error occured saving the file")
+            }
+        }
+    }
+    
+    func getFileURL() -> Bool {
+        // Attempt to get a URL to save the new file to
+        let savePanel = NSSavePanel()
+        savePanel.allowedFileTypes = ["card"]
+        savePanel.title = "Save Deck"
+        savePanel.nameFieldStringValue = "New Deck"
+        savePanel.runModal()
+        if let targetURL = savePanel.url {
+            deckURL = targetURL
+            return true
+        }
+        else {
+            print("User cancelled save")
+            return false
         }
     }
     
