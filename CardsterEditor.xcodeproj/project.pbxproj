@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		B283C6A225FDC983008B59E0 /* COPYING.md in Resources */ = {isa = PBXBuildFile; fileRef = B283C6A125FDC983008B59E0 /* COPYING.md */; };
 		B283C6A525FDC989008B59E0 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = B283C6A425FDC989008B59E0 /* README.md */; };
+		B2D3F13A260ED1EB00752966 /* JSONCardLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2D3F139260ED1EB00752966 /* JSONCardLoader.swift */; };
 		B2E5D55F25F9AAE60096A035 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E5D55E25F9AAE60096A035 /* AppDelegate.swift */; };
 		B2E5D56125F9AAE60096A035 /* WindowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2E5D56025F9AAE60096A035 /* WindowViewController.swift */; };
 		B2E5D56325F9AAE90096A035 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B2E5D56225F9AAE90096A035 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		B283C6A125FDC983008B59E0 /* COPYING.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = COPYING.md; sourceTree = "<group>"; };
 		B283C6A425FDC989008B59E0 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		B2D3F139260ED1EB00752966 /* JSONCardLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCardLoader.swift; sourceTree = "<group>"; };
 		B2E5D55B25F9AAE60096A035 /* CardsterEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardsterEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B2E5D55E25F9AAE60096A035 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B2E5D56025F9AAE60096A035 /* WindowViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowViewController.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 			children = (
 				B2E5D57425F9B1440096A035 /* Card.swift */,
 				B2E5D57825F9B1890096A035 /* DeckBuilderManager.swift */,
+				B2D3F139260ED1EB00752966 /* JSONCardLoader.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -172,6 +175,7 @@
 			files = (
 				B2E5D57925F9B1890096A035 /* DeckBuilderManager.swift in Sources */,
 				B2E5D56125F9AAE60096A035 /* WindowViewController.swift in Sources */,
+				B2D3F13A260ED1EB00752966 /* JSONCardLoader.swift in Sources */,
 				B2E5D57525F9B1440096A035 /* Card.swift in Sources */,
 				B2E5D55F25F9AAE60096A035 /* AppDelegate.swift in Sources */,
 			);

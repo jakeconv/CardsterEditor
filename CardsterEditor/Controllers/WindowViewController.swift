@@ -117,6 +117,24 @@ class WindowViewController: NSViewController {
         }
     }
     
+    @IBAction func openDocument(_ sender: Any) {
+        // Open up a pre-existing card file
+        let openPanel = NSOpenPanel()
+        openPanel.canChooseDirectories = false
+        openPanel.canChooseFiles = true
+        openPanel.allowedFileTypes = ["card"]
+        openPanel.runModal()
+        // Verify that the user specified a file.  If they did, then try to open it.
+        if openPanel.urls.count > 0 {
+            let targetURL = openPanel.urls[0]
+            deckBuilder.openExistingFile(at: targetURL)
+            cardsTable.reloadData()
+        }
+        else {
+            print("User cancelled file open")
+        }
+    }
+    
 }
 
 // MARK: - NSTableViewDelegate, NSTableViewDataSource

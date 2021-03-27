@@ -56,4 +56,15 @@ struct DeckBuilder {
         deck.remove(at: index)
     }
     
+    mutating func openExistingFile(at url: URL) {
+        let cardLoader = JSONCardLoader()
+        cardLoader.loadCards(with: url)
+        if let newDeck = cardLoader.cards {
+            deck = newDeck
+        }
+        else {
+            print("An error occurred loading the new deck.")
+        }
+    }
+    
 }
