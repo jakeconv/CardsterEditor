@@ -46,7 +46,8 @@ class WindowViewController: NSViewController {
         else {
             // Card is valid for deletion
             deckBuilder.removeCard(at: index)
-            cardsTable.removeRows(at: IndexSet(integer: index), withAnimation: .effectFade)
+            //cardsTable.removeRows(at: IndexSet(integer: index), withAnimation: .effectFade)
+            cardsTable.reloadData()
         }
     }
     
@@ -119,6 +120,13 @@ class WindowViewController: NSViewController {
         }
     }
     
+    @IBAction func newDocument(_ sender: Any) {
+        // Reset the editor
+        deckURL = nil
+        deckBuilder = DeckBuilder()
+        cardsTable.reloadData()
+    }
+    
     // MARK: - Items to support saving
     func checkForCardCount() -> Bool {
         // Make sure that there is at least one card
@@ -183,6 +191,10 @@ extension WindowViewController: NSTableViewDelegate, NSTableViewDataSource {
         else if tableColumn?.title == "Back" {
             // We're looking for the back of the card.  Add in the back.
             vw.textField?.stringValue = deckBuilder.getBack(for: row)
+        }
+        else if tableColumn?.title == "Count" {
+            // We're looking for the row number
+            vw.textField?.stringValue = String(row + 1)
         }
         return vw
     }

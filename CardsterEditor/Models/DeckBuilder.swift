@@ -11,7 +11,7 @@ struct DeckBuilder {
     
     // Local Cards
     var deck: [Card] = []
-    
+
     // Append cards
     mutating func append(f front: String, b back: String) {
         let newCard = Card(front: front, back: back, isFlagged: false)
